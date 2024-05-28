@@ -24,7 +24,7 @@ class PlatformScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Get Started';
+        return 'Página principal';
     }
 
     /**
