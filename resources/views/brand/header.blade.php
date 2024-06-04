@@ -9,6 +9,6 @@
 
     <p class="my-0 {{ auth()->check() ? 'd-none d-xl-block' : '' }}">
         {{ config('app.name') }}
-        <!-- <small class="align-top opacity">Regs</small> -->
+        <small class="align-bottom opacity h5">Go</small>
     </p>
 </div>

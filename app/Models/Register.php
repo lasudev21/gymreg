@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Orchid\Attachment\Attachable;
 use Orchid\Filters\Filterable;
+use Orchid\Metrics\Chartable;
 use Orchid\Screen\AsSource;
 
-class Payment extends Model
+class Register extends Model
 {
-    use HasFactory, AsSource, Filterable, Attachable;
+    use Chartable, HasFactory, AsSource, Filterable, Attachable;
     protected  $fillable = [
-        "amount",
+        "income",
         "client_id",
-        "term",
     ];
 
     public function client(): BelongsTo

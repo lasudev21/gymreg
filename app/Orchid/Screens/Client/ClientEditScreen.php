@@ -5,6 +5,7 @@ namespace App\Orchid\Screens\Client;
 use App\Models\Client;
 use App\Orchid\Layouts\Client\ClientEditLayout;
 use App\Orchid\Layouts\Payment\PaymentRegisterLayout;
+use App\Services\StringUtil;
 use Orchid\Screen\Screen;
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
@@ -46,6 +47,8 @@ class ClientEditScreen extends Screen
     public function save(Request $request, Client $client)
     {
         $client->fill($request->get('client'));
+        $client->firstname = StringUtil::capitalizarPrimerasLetras($client->firstname);
+        $client->lastname = StringUtil::capitalizarPrimerasLetras($client->lastname);
         $client->save();
 
         Toast::success("Cliente creado con éxito");

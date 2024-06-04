@@ -63,7 +63,7 @@ class ClientListLayout extends Table
                     return $model->created_at->toDateString();
                 }),
 
-            TD::make(__('Actions'))
+            TD::make(__('Acciones'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('10px')
                 ->render(fn ($client) => Group::make([
@@ -84,9 +84,9 @@ class ClientListLayout extends Table
                             Link::make(__('Editar'))
                                 ->route('platform.clients.edit', $client->id)
                                 ->icon('bs.pencil'),
-                            Button::make(__('Eliminar'))
+                            Button::make(__('Inactivar'))
                                 ->icon('bs.trash3')
-                                ->confirm(__('Está seguro que desea eliminar este usuario?'))
+                                ->confirm(__('Está seguro que desea inactivar este usuario este usuario?'))
                                 ->method('remove', [
                                     'id' => $client->id,
                                 ]),

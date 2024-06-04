@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\RegisterController;
 use App\Orchid\Screens\Client\ClientEditScreen;
 use App\Orchid\Screens\Client\ClientListScreen;
 use App\Orchid\Screens\Client\ClientViewScreen;
-use App\Orchid\Screens\Client\PaymentLogsScreen;
 use App\Orchid\Screens\Examples\ExampleActionsScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
 use App\Orchid\Screens\Examples\ExampleChartsScreen;
@@ -131,3 +131,8 @@ Route::screen('clients/{client}/view', ClientViewScreen::class)
     ->breadcrumbs(fn (Trail $trail, $client) => $trail
         ->parent('platform.clients')
         ->push($client->firstname . ' ' . $client->lastname, route('platform.clients.view', $client)));
+
+
+//Ruta Registro
+Route::get('register', [RegisterController::class, 'index'])->name('register');
+Route::post('income', [RegisterController::class, 'income'])->name('income');

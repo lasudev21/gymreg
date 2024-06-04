@@ -57,22 +57,28 @@ class PlatformProvider extends OrchidServiceProvider
             //     ->route('platform.example.cards')
             //     ->divider(),
 
-            Menu::make(__('Users'))
+            Menu::make(__('Usuarios'))
                 ->icon('bs.people')
                 ->route('platform.systems.users')
                 ->permission('platform.systems.users')
-                ->title(__('Access Controls')),
+                ->title(__('Control de acceso')),
 
             Menu::make(__('Roles'))
                 ->icon('bs.shield')
                 ->route('platform.systems.roles')
                 ->permission('platform.systems.roles')
-                ->divider(),
+            // ->divider()
+            ,
 
             Menu::make('Clientes')
                 ->icon('people-fill')
                 // ->permission('platform.clients')
-                ->route('platform.clients'),
+                ->route('platform.clients')
+                ->title(__('Menú principal')),
+
+            Menu::make('Ingresos')
+                ->icon('people-fill')
+                ->route('register'),
 
             // Menu::make('Multi Level')
             //     ->slug('sub-menu')

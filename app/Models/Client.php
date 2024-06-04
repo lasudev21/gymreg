@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Orchid\Presenters\ClientPresenter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Orchid\Attachment\Attachable;
 use Orchid\Filters\Filterable;
 use Orchid\Filters\Types\Like;
@@ -48,5 +49,15 @@ class Client extends Model
     public function presenter(): ClientPresenter
     {
         return new ClientPresenter($this);
+    }
+
+    public function registers(): HasMany
+    {
+        return $this->hasMany(Register::class);
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
     }
 }

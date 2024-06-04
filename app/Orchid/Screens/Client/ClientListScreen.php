@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Payment;
 use App\Orchid\Layouts\Client\ClientListLayout;
 use App\Orchid\Layouts\Payment\PaymentRegisterLayout;
+use Exception;
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
@@ -39,23 +40,38 @@ class ClientListScreen extends Screen
     {
         return [
             ClientListLayout::class,
-            Layout::modal('Registrar pago', PaymentRegisterLayout::class),
+            Layout::modal('Registrar pago', PaymentRegisterLayout::class)
+                ->applyButton('Registrar pago')
+                ->closeButton('Cancelar'),
         ];
     }
 
     public function remove($id): void
     {
-        Toast::info($id);
+        $client = Client::find($id);
+        $client->status = false;
+        $client->save();
+        Toast::success('Cliente desactivado');
     }
 
     public function savePayemt(Request $request,  $id): void
     {
-        $payment = new Payment();
-        $payment->fill([
-            'client_id' => $id,
-            'amount' => $request->get('amount')
-        ]);
-        $payment->save();
-        Toast::success('Pago registrado con exito.');
+        try {
+            $payment = new Payment;
+            $payment->fill([
+                'client_id' => $id,
+                'amount' => $request->get('amount'),
+                'term' => $request->get('term')
+            ]);
+            $payment->save();
+            Toast::success('Pago registrado con exito.');
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            if (strpos($e, 'SQLSTATE[23000]') !== false) {
+                Toast::error('Ya existe un pago registrado del cliente para el periodo de tiempo seleccionado');
+            } else {
+                Toast::error('Error no controlado, por favor contacte a su administrador');
+            }
+        }
     }
 }
