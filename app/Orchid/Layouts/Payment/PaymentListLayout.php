@@ -3,7 +3,6 @@
 namespace App\Orchid\Layouts\Payment;
 
 use Orchid\Screen\Components\Cells\Currency;
-use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
 
@@ -25,11 +24,6 @@ class PaymentListLayout extends Table
             TD::make('term', 'Periodo')
                 // ->filter(Input::make())
                 ->sort(),
-            // TD::make('created_at', 'Fecha de creación')
-            //     ->render(function ($model) {
-            //         return $model->created_at->toDateString();
-            //     })
-            //     ->sort(),
         ];
     }
 }

@@ -18,7 +18,7 @@ class ClientListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'clients' => Client::filters()->defaultSort('id', 'desc')->paginate(),
+            'clients' => Client::filters()->defaultSort('id', 'desc')->paginate(13),
         ];
     }
 
@@ -46,12 +46,12 @@ class ClientListScreen extends Screen
         ];
     }
 
-    public function remove($id): void
+    public function remove($id, $status): void
     {
         $client = Client::find($id);
-        $client->status = false;
+        $client->status = $status;
         $client->save();
-        Toast::success('Cliente desactivado');
+        Toast::success('Cliente actualizado con éxito');
     }
 
     public function savePayemt(Request $request,  $id): void

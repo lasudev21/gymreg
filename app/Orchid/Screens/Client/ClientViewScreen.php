@@ -4,12 +4,15 @@ namespace App\Orchid\Screens\Client;
 
 use App\Models\Client;
 use App\Models\Payment;
+use App\Models\Register;
 use App\Orchid\Layouts\Payment\PaymentListLayout;
 use App\Orchid\Layouts\Payment\PaymentRegisterLayout;
+use App\Orchid\Layouts\Register\RegisterListLayout;
 use Exception;
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Actions\ModalToggle;
+use Orchid\Screen\Components\Cells\Boolean;
 use Orchid\Screen\Layouts\Modal;
 use Orchid\Screen\Screen;
 use Orchid\Screen\Sight;
@@ -23,11 +26,13 @@ class ClientViewScreen extends Screen
 
     public function query(Client $client): iterable
     {
+        // $this->client = $client;
         $payments = Payment::where('client_id', $client->id)->filters()->defaultSort('term', 'desc')->paginate(10);
+        $registers = Register::where('client_id', $client->id)->filters()->paginate(8);
 
         return [
             'client' => $client,
-            'payments' => $payments
+            'payments' => $payments,
         ];
     }
 
@@ -43,6 +48,9 @@ class ClientViewScreen extends Screen
                 ->modal('Registrar pago')
                 ->method('savePayemt')
                 ->icon('currency-dollar'),
+            Link::make(__('Historial de registros'))
+                ->icon('bs.list-columns')
+                ->href(route('platform.clients.register', $this->client)),
         ];
     }
 
@@ -51,11 +59,18 @@ class ClientViewScreen extends Screen
         return [
             Layout::modal('Registrar pago', PaymentRegisterLayout::class)
                 ->applyButton('Registrar Pago')
+                ->staticBackdrop(true)
+                ->type(Modal::TYPE_CENTER)
                 ->closeButton('Cancelar'),
+
             Layout::split([
                 Layout::legend('client', [
                     Sight::make('firstname', 'Nombres'),
+
                     Sight::make('lastname', 'Apellidos'),
+
+                    Sight::make('status', 'Estado')
+                        ->usingComponent(Boolean::class, true: 'Activo', false: 'Inactivo'),
 
                     Sight::make('identification', 'Documento de identificación'),
 
@@ -98,6 +113,7 @@ class ClientViewScreen extends Screen
                     Sight::make('email', 'Correo eléctronico'),
                     Sight::make('dateadmission', 'Fecha de ingreso'),
                 ]),
+
                 PaymentListLayout::class,
             ])->ratio('60/40')->reverseOnPhone(),
 

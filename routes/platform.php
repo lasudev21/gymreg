@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\RegisterController;
 use App\Orchid\Screens\Client\ClientEditScreen;
 use App\Orchid\Screens\Client\ClientListScreen;
+use App\Orchid\Screens\Client\ClientRegisterListScreen;
 use App\Orchid\Screens\Client\ClientViewScreen;
 use App\Orchid\Screens\Examples\ExampleActionsScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
@@ -131,6 +132,12 @@ Route::screen('clients/{client}/view', ClientViewScreen::class)
     ->breadcrumbs(fn (Trail $trail, $client) => $trail
         ->parent('platform.clients')
         ->push($client->firstname . ' ' . $client->lastname, route('platform.clients.view', $client)));
+
+Route::screen('clients/{client}/register', ClientRegisterListScreen::class)
+    ->name('platform.clients.register')
+    ->breadcrumbs(fn (Trail $trail, $client) => $trail
+        ->parent('platform.clients')
+        ->push('Historial de ingresos', route('platform.clients.register', $client)));
 
 
 //Ruta Registro

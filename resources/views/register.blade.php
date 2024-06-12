@@ -1,12 +1,19 @@
 @extends('platform::dashboard')
 <!-- Option 1: Include in HTML -->
+
 @section('title','Registro de ingresos')
+
 @section('description', '')
 
 @section('navbar')
-<!-- <div class="text-center">
-    Navbar prueba
-</div> -->
+<!-- <nav aria-label="breadcrumb">
+    <ol class="breadcrumb px-4 mb-2">
+        <li class="breadcrumb-item">
+            <a href="/admin/main">Inicio</a>
+        </li>
+        <li class="breadcrumb-item active">Ingresos</li>
+    </ol>
+</nav> -->
 @stop
 
 @section('content')
@@ -34,7 +41,7 @@
                 <!-- <div class="border-dashed d-flex align-items-center w-100 rounded overflow-hidden" style="min-height: 250px;">
                     <h2 class="text-muted center fw-light">Dummy <small class="d-block text-center">kn6MtZpS</small></h2>
                 </div> -->
-                <table class="table table-striped table-hover table-sm">
+                <table class="table table-compact table-striped">
                     <thead>
                         <th>Cliente</th>
                         <th>¿Ingresó?</th>
@@ -43,7 +50,9 @@
                     <tbody>
                         @foreach ($registers as $item)
                         <tr>
-                            <td>{{ $item->client->firstname }} {{ $item->client->lastname }}</td>
+                            <td>
+                                <a class="btn btn-link" href="{{route('platform.clients.view', $item->client->id )}}">{{ $item->client->firstname }} {{ $item->client->lastname }}</a>
+                            </td>
                             <td>
                                 @if($item->income)
                                 <span class="badge rounded-pill bg-success">Admitido</span>

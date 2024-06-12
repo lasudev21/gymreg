@@ -8,7 +8,7 @@ class ChartLineRegisterDaily extends Chart
 {
     protected $type = 'line';
 
-    protected $export = true;
+    protected $export = false;
 
     protected $height = 300;
 
