@@ -28,13 +28,13 @@ class UserListLayout extends Table
     public function columns(): array
     {
         return [
-            TD::make('name', __('Name'))
+            TD::make('name', __('Nombre'))
                 ->sort()
                 ->cantHide()
                 ->filter(Input::make())
                 ->render(fn (User $user) => new Persona($user->presenter())),
 
-            TD::make('email', __('Email'))
+            TD::make('email', __('Correo'))
                 ->sort()
                 ->cantHide()
                 ->filter(Input::make())
@@ -46,18 +46,18 @@ class UserListLayout extends Table
                         'user' => $user->id,
                     ])),
 
-            TD::make('created_at', __('Created'))
+            TD::make('created_at', __('Fecha creación'))
                 ->usingComponent(DateTimeSplit::class)
                 ->align(TD::ALIGN_RIGHT)
                 ->defaultHidden()
                 ->sort(),
 
-            TD::make('updated_at', __('Last edit'))
+            TD::make('updated_at', __('Ultima edición'))
                 ->usingComponent(DateTimeSplit::class)
                 ->align(TD::ALIGN_RIGHT)
                 ->sort(),
 
-            TD::make(__('Actions'))
+            TD::make(__('Acciones'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
                 ->render(fn (User $user) => DropDown::make()

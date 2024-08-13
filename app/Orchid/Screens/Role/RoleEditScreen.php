@@ -41,7 +41,7 @@ class RoleEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Edit Role';
+        return 'Editar Rol';
     }
 
     /**
@@ -67,11 +67,11 @@ class RoleEditScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make(__('Save'))
+            Button::make(__('Guadar'))
                 ->icon('bs.check-circle')
                 ->method('save'),
 
-            Button::make(__('Remove'))
+            Button::make(__('Eliminar'))
                 ->icon('bs.trash3')
                 ->method('remove')
                 ->canSee($this->role->exists),

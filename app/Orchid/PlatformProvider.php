@@ -77,7 +77,7 @@ class PlatformProvider extends OrchidServiceProvider
                 ->title(__('Menú principal')),
 
             Menu::make('Ingresos')
-                ->icon('people-fill')
+                ->icon('list-check')
                 ->route('register'),
 
             // Menu::make('Multi Level')
